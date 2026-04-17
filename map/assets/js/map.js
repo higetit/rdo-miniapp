@@ -42,22 +42,22 @@ const MapBase = {
       'map.layers.default': L.tileLayer('https://s.rsg.sc/sc/images/games/RDR2/map/game/{z}/{x}/{y}.jpg', {
         noWrap: true,
         bounds: mapBoundary,
-        attribution: '<a href="https://www.rockstargames.com/" target="_blank">Rockstar Games</a>'
+        attribution: ''
       }),
       'map.layers.detailed': L.tileLayer((isLocalHost() ? 'assets/maps/' : 'https://map-tiles.b-cdn.net/assets/rdr3/') + 'webp/detailed/{z}/{x}_{y}.webp', {
         noWrap: true,
         bounds: mapBoundary,
-        attribution: '<a href="https://rdr2map.com/" target="_blank">RDR2Map</a>'
+        attribution: ''
       }),
       'map.layers.dark': L.tileLayer((isLocalHost() ? 'assets/maps/' : 'https://map-tiles.b-cdn.net/assets/rdr3/') + 'webp/darkmode/{z}/{x}_{y}.webp', {
         noWrap: true,
         bounds: mapBoundary,
-        attribution: '<a href="https://github.com/TDLCTV" target="_blank">TDLCTV</a>'
+        attribution: ''
       }),
       'map.layers.black': L.tileLayer((isLocalHost() ? 'assets/maps/' : 'https://map-tiles.b-cdn.net/assets/rdr3/') + 'webp/black/{z}/{x}_{y}.webp', {
         noWrap: true,
         bounds: mapBoundary,
-        attribution: '<a href="https://github.com/AdamNortonUK" target="_blank">AdamNortonUK</a>'
+        attribution: ''
       }),
     };
 
@@ -125,12 +125,7 @@ const MapBase = {
       layers: [mapLayers[this.themeOverride || Settings.baseLayer]],
     }).setView([this.viewportX, this.viewportY], this.viewportZoom);
 
-    MapBase.map.addControl(
-      L.control.attribution({
-        position: 'bottomright',
-        prefix: '<a target="_blank" href="https://github.com/jeanropke/RDR2CollectorsMap/blob/master/CONTRIBUTORS.md" data-text="map.attribution_prefix">Collectors Map Contributors</a>'
-      })
-    );
+    // attribution control removed
 
     new L.Control.ZoomEx({
       position: "bottomright",
