@@ -216,8 +216,7 @@ function init() {
   Inventory.init();
   MapBase.loadFastTravels();
   const filters = MapBase.loadFilters();
-  // Wait for languages so FME labels don't render as raw i18n keys on first paint.
-  languages.then(() => FME.init());
+  FME.init();
 
   const treasures = Treasure.init();
   const legendaries = Legendary.init();
@@ -626,7 +625,7 @@ searchContainer.addEventListener('mouseenter', () => {
 });
 
 document.getElementById('copy-search-link').addEventListener('click', function () {
-  setClipboardText(`http://jeanropke.github.io/RDR2CollectorsMap/?search=${searchInput.value}`);
+  // copy-link removed for Telegram mini-app
 });
 
 document.getElementById('clear-search').addEventListener('click', function () {

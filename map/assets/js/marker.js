@@ -359,9 +359,6 @@ class Marker {
         <span class="popup-link-container">
           <a href="" data-text="${this.item && this.item.isImportant ? 'map.unmark_important' : 'map.mark_important'}"></a>
         </span>
-        <span class="popup-link-container">
-          <a href="" data-text="map.copy_link"></a>
-        </span>
       </p>
       <small class="popupContentDebug">
         Latitude: ${this.lat} / Longitude: ${this.lng}<br>
@@ -381,17 +378,6 @@ class Marker {
 
     snippet.querySelector('.marker-troubleshooting').addEventListener('click', () => markerTRBLModal.show());
 
-    snippet.querySelector('.marker-popup-links').querySelector('[data-text="map.copy_link"]').addEventListener('click', (e) => {
-      e.preventDefault();
-      setClipboardText(`https://jeanropke.github.io/RDR2CollectorsMap/?m=${this.text}`);
-      const currTarget = e.currentTarget;
-      currTarget.setAttribute('data-text', 'map.link_copied');
-      currTarget.textContent = Language.get('map.link_copied');
-      setTimeout(() => {
-        currTarget.setAttribute('data-text', 'map.copy_link');
-        currTarget.textContent = Language.get('map.copy_link');
-      }, 1000);
-    });
 
     const importanceBtn = snippet.querySelector('.marker-popup-links').querySelector('[data-text="map.mark_important"], [data-text="map.unmark_important"]');
     importanceBtn.addEventListener('click', (e) => {
