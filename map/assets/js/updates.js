@@ -11,8 +11,8 @@ class Updates {
     // Possibility for enhancement; "Check for new updates" functionality, re-fetching updates.json.
     // Currently only used during init, don't see much reason not to do it on interval at some point.
     const version = this._json.version;
-    if (Settings.lastVersion === version) return;
-    this.showModal();
+    // Silently record the version so the updates modal never pops up on first load
+    // (Telegram mini-app context doesn't need the upstream changelog modal).
     Settings.lastVersion = version;
   }
 

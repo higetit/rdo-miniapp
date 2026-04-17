@@ -90,8 +90,11 @@
       const loader = document.getElementById("frame-loader");
       const frame = document.getElementById("map-frame");
       const hide = () => loader && loader.classList.add("hide");
-      frame.addEventListener("load", () => setTimeout(hide, 600));
-      setTimeout(hide, 6000);
+      window.addEventListener("message", (ev) => {
+        if (ev && ev.data && ev.data.type === "rdo-map-ready") hide();
+      });
+      frame.addEventListener("load", () => setTimeout(hide, 2500));
+      setTimeout(hide, 15000);
     </script>
   </body>
 </html>

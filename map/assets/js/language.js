@@ -38,12 +38,12 @@ const Language = {
   },
 
   _links: {
-    'GitHub': ['https://github.com/jeanropke/RDR2CollectorsMap/issues', 'GitHub'],
-    'Discord': ['https://discord.gg/WWru8cP', 'Discord'],
-    'int.nazar.link': ['https://twitter.com/MadamNazarIO', '@MadamNazarIO'],
-    'int.random_spot.link': ['https://github.com/jeanropke/RDR2CollectorsMap/wiki/Random-Item-Possible-Loot'],
-    'int.naturalist_faq.link': ['https://github.com/jeanropke/RDR2CollectorsMap/wiki/Naturalist-Update-Changes'],
-    'int.rdo.overview': ['https://socialclub.rockstargames.com/games/rdo/overview']
+    'GitHub': ['#', ''],
+    'Discord': ['#', ''],
+    'int.nazar.link': ['#', ''],
+    'int.random_spot.link': ['#', ''],
+    'int.naturalist_faq.link': ['#', ''],
+    'int.rdo.overview': ['#', '']
   },
 
   _externalLink: function (key) {

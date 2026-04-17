@@ -196,6 +196,15 @@ function init() {
   itemsCollectionsWeekly.then(MapBase.loadOverlays);
   MapBase.mapInit(); // MapBase.map
   const languages = Language.init().then(() => Language.setMenuLanguage());
+  // Reveal the page only once translations are ready so no raw i18n keys flash.
+  languages.then(() => {
+    document.body.classList.remove('i18n-loading');
+    try {
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({ type: 'rdo-map-ready' }, '*');
+      }
+    } catch (e) { /* ignore */ }
+  });
   changeCursor();
 
   // MapBase.markers (without .lMarker), Item.items[].markers
