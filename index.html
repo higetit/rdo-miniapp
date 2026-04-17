@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#17212b" />
+  <title>RDO Companion</title>
+
+  <!-- Telegram WebApp SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js?57"></script>
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Splash -->
+  <div id="splash" class="splash" aria-hidden="true">
+    <div class="splash-inner">
+      <div class="splash-logo">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#ff9a4c"/>
+              <stop offset="1" stop-color="#ef4444"/>
+            </linearGradient>
+          </defs>
+          <rect x="4" y="4" width="56" height="56" rx="16" fill="url(#lg)"/>
+          <path d="M20 22l12 -6 12 6v14c0 8-6 13-12 14c-6-1-12-6-12-14z"
+                fill="none" stroke="#fff" stroke-width="3" stroke-linejoin="round"/>
+          <circle cx="32" cy="32" r="4" fill="#fff"/>
+        </svg>
+      </div>
+      <div class="splash-title">RDO Companion</div>
+      <div class="splash-sub">Loading your frontier…</div>
+    </div>
+  </div>
+
+  <!-- Top bar -->
+  <header class="topbar" id="topbar">
+    <button class="icon-btn" id="btn-back" hidden aria-label="Back">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    <div class="topbar-title">
+      <div class="title-main">RDO Companion</div>
+      <div class="title-sub" id="title-sub">Interactive world map</div>
+    </div>
+    <button class="icon-btn" id="btn-menu" aria-label="Menu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </header>
+
+  <!-- Category chips (Durger-King-style horizontal scroller) -->
+  <nav class="chips-row" id="chips-row" aria-label="Sections">
+    <button class="chip-tab active" data-view="map">
+      <i class="fa-solid fa-map-location-dot"></i><span>Map</span>
+    </button>
+    <button class="chip-tab" data-view="nazar">
+      <i class="fa-solid fa-eye"></i><span>Nazar</span>
+    </button>
+    <button class="chip-tab" data-view="legendary">
+      <i class="fa-solid fa-paw"></i><span>Legendary</span>
+    </button>
+    <button class="chip-tab" data-view="cards">
+      <i class="fa-solid fa-clone"></i><span>Cards</span>
+    </button>
+    <button class="chip-tab" data-view="events">
+      <i class="fa-solid fa-calendar-days"></i><span>Events</span>
+    </button>
+    <button class="chip-tab" data-view="pamphlets">
+      <i class="fa-solid fa-scroll"></i><span>Pamphlets</span>
+    </button>
+    <button class="chip-tab" data-view="weekly">
+      <i class="fa-solid fa-box-open"></i><span>Weekly</span>
+    </button>
+    <button class="chip-tab" data-view="jewelry">
+      <i class="fa-solid fa-gem"></i><span>Jewelry</span>
+    </button>
+    <button class="chip-tab" data-view="cycles">
+      <i class="fa-solid fa-arrows-rotate"></i><span>Cycles</span>
+    </button>
+  </nav>
+
+  <!-- Map -->
+  <main class="map-wrap">
+    <div id="map"></div>
+
+    <!-- Floating status chip -->
+    <div class="chip" id="chip-status" hidden>
+      <i class="fa-solid fa-circle-check"></i>
+      <span id="chip-text">Connected</span>
+    </div>
+
+    <!-- Map controls -->
+    <div class="map-controls">
+      <button class="map-btn" id="btn-layers" aria-label="Layers">
+        <i class="fa-solid fa-layer-group"></i>
+      </button>
+    </div>
+  </main>
+
+  <!-- Bottom sheet -->
+  <div class="backdrop" id="backdrop" hidden></div>
+  <section class="sheet" id="sheet" hidden aria-hidden="true">
+    <div class="sheet-grip" aria-hidden="true"></div>
+    <header class="sheet-header">
+      <h2 class="sheet-title" id="sheet-title">Title</h2>
+      <button class="icon-btn ghost" id="sheet-close" aria-label="Close">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </header>
+    <div class="sheet-body" id="sheet-body"></div>
+  </section>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" hidden></div>
+
+  <script src="js/telegram.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/content.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
