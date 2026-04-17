@@ -207,7 +207,8 @@ function init() {
   Inventory.init();
   MapBase.loadFastTravels();
   const filters = MapBase.loadFilters();
-  FME.init();
+  // Wait for languages so FME labels don't render as raw i18n keys on first paint.
+  languages.then(() => FME.init());
 
   const treasures = Treasure.init();
   const legendaries = Legendary.init();

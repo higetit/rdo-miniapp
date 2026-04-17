@@ -1,55 +1,97 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
-  <meta name="theme-color" content="#17212b" />
-  <title>RDO Collectors Map</title>
-  <script src="https://telegram.org/js/telegram-web-app.js?57"></script>
-  <style>
-    html, body { margin:0; padding:0; height:100%; width:100%; overflow:hidden; background:#0d1117; }
-    #map-frame { position:fixed; inset:0; width:100%; height:100%; border:0; display:block; }
-    .frame-loader {
-      position:fixed; inset:0; display:flex; flex-direction:column;
-      align-items:center; justify-content:center; gap:14px;
-      background:#0d1117; color:#e8ebf1; z-index:9;
-      transition:opacity .3s ease;
-      font-family:-apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, system-ui, sans-serif;
-    }
-    .frame-loader.hide { opacity:0; pointer-events:none; }
-    .loader-text { font-size:13px; color:#8ea0b8; }
-    .spinner {
-      width:30px; height:30px;
-      border:2.5px solid rgba(255,255,255,.1);
-      border-top-color:#f59220;
-      border-radius:50%;
-      animation:spin .7s linear infinite;
-    }
-    @keyframes spin { to { transform:rotate(360deg); } }
-  </style>
-</head>
-<body>
-  <div class="frame-loader" id="frame-loader">
-    <div class="spinner"></div>
-    <div class="loader-text">Loading map…</div>
-  </div>
-  <iframe
-    id="map-frame"
-    src="./map/index.html?lang=en-US&theme=detailed"
-    title="RDO Collectors Map"
-    referrerpolicy="no-referrer"
-    allow="fullscreen"
-  ></iframe>
-  <script>
-    try {
-      const tg = window.Telegram && window.Telegram.WebApp;
-      if (tg) { tg.ready(); tg.expand(); tg.setHeaderColor && tg.setHeaderColor('#0d1117'); }
-    } catch (e) {}
-    const loader = document.getElementById('frame-loader');
-    const frame  = document.getElementById('map-frame');
-    const hide   = () => loader && loader.classList.add('hide');
-    frame.addEventListener('load', () => setTimeout(hide, 600));
-    setTimeout(hide, 6000);
-  </script>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#17212b" />
+    <title>RDO Collectors Map</title>
+    <script src="https://telegram.org/js/telegram-web-app.js?57"></script>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        background: #0d1117;
+      }
+      #map-frame {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        display: block;
+      }
+      .frame-loader {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        background: #0d1117;
+        color: #e8ebf1;
+        z-index: 9;
+        transition: opacity 0.3s ease;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto,
+          system-ui, sans-serif;
+      }
+      .frame-loader.hide {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .loader-text {
+        font-size: 13px;
+        color: #8ea0b8;
+      }
+      .spinner {
+        width: 30px;
+        height: 30px;
+        border: 2.5px solid rgba(255, 255, 255, 0.1);
+        border-top-color: #f59220;
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="frame-loader" id="frame-loader">
+      <div class="spinner"></div>
+      <div class="loader-text">Loading map…</div>
+    </div>
+    <iframe
+      id="map-frame"
+      src="./map/index.html?lang=en-US&theme=detailed"
+      title="RDO Collectors Map"
+      referrerpolicy="no-referrer"
+      allow="fullscreen"
+    ></iframe>
+    <script>
+      try {
+        const tg = window.Telegram && window.Telegram.WebApp;
+        if (tg) {
+          tg.ready();
+          tg.expand();
+          tg.setHeaderColor && tg.setHeaderColor("#0d1117");
+        }
+      } catch (e) {}
+      const loader = document.getElementById("frame-loader");
+      const frame = document.getElementById("map-frame");
+      const hide = () => loader && loader.classList.add("hide");
+      frame.addEventListener("load", () => setTimeout(hide, 600));
+      setTimeout(hide, 6000);
+    </script>
+  </body>
 </html>
