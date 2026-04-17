@@ -196,9 +196,8 @@ function init() {
   itemsCollectionsWeekly.then(MapBase.loadOverlays);
   MapBase.mapInit(); // MapBase.map
   const languages = Language.init().then(() => Language.setMenuLanguage());
-  // Reveal the page only once translations are ready so no raw i18n keys flash.
+  // Signal the outer Telegram wrapper iframe that the map is ready to reveal.
   languages.then(() => {
-    document.body.classList.remove('i18n-loading');
     try {
       if (window.parent && window.parent !== window) {
         window.parent.postMessage({ type: 'rdo-map-ready' }, '*');
