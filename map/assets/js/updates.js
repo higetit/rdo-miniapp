@@ -1,9 +1,12 @@
 class Updates {
   static init() {
-    return Loader.promises['updates'].consumeJson(data => {
+    return Loader.promises["updates"].consumeJson((data) => {
       this._json = data;
       this.checkNewVersion();
-      console.info('%c[Updates] Loaded!', 'color: #bada55; background: #242424');
+      console.info(
+        "%c[Updates] Loaded!",
+        "color: #bada55; background: #242424",
+      );
     });
   }
 
@@ -21,21 +24,21 @@ class Updates {
     // Not sure if the user can ever be quick enough, but this should prevent any issues if they are.
     if (!this._json) return;
 
-    const modalBody = document.querySelector('#map-updates-modal .modal-body');
+    const modalBody = document.querySelector("#map-updates-modal .modal-body");
     if (!modalBody) return;
-    modalBody.innerHTML = '';
+    modalBody.innerHTML = "";
 
     const data = this._json;
-    const snippet = document.createElement('p');
+    const snippet = document.createElement("p");
     snippet.textContent = data.message;
-    data.lists.forEach(list => {
-      const listElement = document.createElement('div');
-      listElement.classList.add('modal-list');
-      const listTitle = document.createElement('h4');
+    data.lists.forEach((list) => {
+      const listElement = document.createElement("div");
+      listElement.classList.add("modal-list");
+      const listTitle = document.createElement("h4");
       listTitle.textContent = list.text;
       listElement.appendChild(listTitle);
-      list.items.forEach(item => {
-        const listItem = document.createElement('p');
+      list.items.forEach((item) => {
+        const listItem = document.createElement("p");
         listItem.textContent = `- ${item}`;
         listElement.appendChild(listItem);
       });
@@ -43,26 +46,28 @@ class Updates {
     });
 
     if (data.links.length > 0) {
-      const actionsDiv = document.createElement('div');
-      actionsDiv.classList.add('modal-actions');
-      const actionsTitle = document.createElement('h4');
-      actionsTitle.setAttribute('data-text', 'menu.modal_map_updates_actions');
+      const actionsDiv = document.createElement("div");
+      actionsDiv.classList.add("modal-actions");
+      const actionsTitle = document.createElement("h4");
+      actionsTitle.setAttribute("data-text", "menu.modal_map_updates_actions");
       actionsDiv.appendChild(actionsTitle);
-      data.links.forEach(link => {
-        const linkEl = document.createElement('a');
-        linkEl.classList.add('btn');
+      data.links.forEach((link) => {
+        const linkEl = document.createElement("a");
+        linkEl.classList.add("btn");
         linkEl.classList.add(`btn-${link.class || "link"}`);
         linkEl.href = link.url;
-        linkEl.target = '_blank';
-        linkEl.rel = 'noopener noreferrer';
+        linkEl.target = "_blank";
+        linkEl.rel = "noopener noreferrer";
         linkEl.textContent = link.text;
         actionsDiv.appendChild(linkEl);
       });
       snippet.appendChild(actionsDiv);
     }
-    
+
     modalBody.appendChild(Language.translateDom(snippet));
-    const updatesModal = new bootstrap.Modal(document.getElementById('map-updates-modal'));
+    const updatesModal = new bootstrap.Modal(
+      document.getElementById("map-updates-modal"),
+    );
     updatesModal.show();
   }
 }
