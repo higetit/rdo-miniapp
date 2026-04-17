@@ -93,8 +93,9 @@
       window.addEventListener("message", (ev) => {
         if (ev && ev.data && ev.data.type === "rdo-map-ready") hide();
       });
-      frame.addEventListener("load", () => setTimeout(hide, 2500));
-      setTimeout(hide, 15000);
+      frame.addEventListener("load", hide);
+      // Fallback in case iframe load event is delayed by slow third-party API calls.
+      setTimeout(hide, 4000);
     </script>
   </body>
 </html>
