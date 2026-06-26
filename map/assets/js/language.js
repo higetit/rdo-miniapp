@@ -205,9 +205,13 @@ const Language = {
     let thisProg = this.progress[Settings.language.replace("-", "_")];
     if (Settings.language === "en") thisProg = 100;
     if (!thisProg) thisProg = 0;
-    document.getElementById("translation-progress").textContent = Language.get(
-      "menu.translate_progress",
-    ).replace("{progress}", thisProg);
+    const translationProgress = document.getElementById("translation-progress");
+    if (translationProgress) {
+      translationProgress.textContent = Language.get("menu.translate_progress").replace(
+        "{progress}",
+        thisProg,
+      );
+    }
   },
 
   _postTranslation: function () {
@@ -227,12 +231,13 @@ const Language = {
       "pt-BR": "-pt-BR",
       ru: "-ru-RU",
     };
-    document
-      .querySelector(".wiki-page")
-      .setAttribute(
+    const wikiPage = document.querySelector(".wiki-page");
+    if (wikiPage) {
+      wikiPage.setAttribute(
         "href",
         `https://github.com/jeanropke/RDR2CollectorsMap/wiki/RDO-Collectors-Map-User-Guide${wikiPages[Settings.language] ?? ""}`,
       );
+    }
 
     document
       .getElementById("search")

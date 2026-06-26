@@ -277,7 +277,11 @@ function init() {
   const fmeReady = FME.init();
   // Re-render FME card once both event data AND translations are available,
   // otherwise first paint can show raw i18n keys (e.g. menu.fme.time.minutes).
-  Promise.all([languages, fmeReady]).then(() => { try { FME.update(); } catch (e) {} });
+  Promise.all([languages, fmeReady]).then(() => {
+    try {
+      FME.update();
+    } catch (e) {}
+  });
 
   const treasures = Treasure.init();
   const legendaries = Legendary.init();
@@ -1511,9 +1515,7 @@ document
     keyboardShortcutsModal.show();
   });
 
-document
-  .getElementById("open-updates-modal")
-  .addEventListener("click", function () {
+document.getElementById("open-updates-modal")?.addEventListener("click", function () {
     Updates.showModal();
   });
 
