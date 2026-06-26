@@ -185,8 +185,13 @@ const FME = {
    * Update the FME card
    */
   update: function () {
+    if (!Language.ready) {
+      FME.updateVisiblity(false);
+      return;
+    }
+
     if (!Settings.isFmeDisplayEnabled && !Settings.isFmeNotificationEnabled) {
-      FME.updateVisiblity();
+      FME.updateVisiblity(false);
       return;
     }
 
@@ -195,17 +200,17 @@ const FME = {
     FME.updateEvent(FME._eventsJson.general, "general");
     FME.updateEvent(FME._eventsJson.role, "role");
 
-    FME.updateVisiblity();
+    FME.updateVisiblity(true);
   },
 
   /**
    * Update the visibility of the FME card
    */
-  updateVisiblity: function () {
+  updateVisiblity: function (isReady = true) {
     // Preview mode removes this element.
     const fmeContainer = document.getElementById('fme-container');
     if (!fmeContainer) return;
-    fmeContainer.style.display = Settings.isFmeDisplayEnabled ? '' : 'none';
+    fmeContainer.style.display = isReady && Settings.isFmeDisplayEnabled ? '' : 'none';
   },
 
   markNotSupported: function () {

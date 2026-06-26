@@ -1,5 +1,6 @@
 const Language = {
   data: {},
+  ready: false,
   availableLanguages: [
     "en",
     "af",
@@ -147,6 +148,7 @@ const Language = {
   setMenuLanguage: function () {
     "use strict";
 
+    Language.ready = false;
     document.documentElement.setAttribute("lang", Settings.language);
 
     if (Language.data[Settings.language] === undefined) {
@@ -185,7 +187,7 @@ const Language = {
     }
 
     this.translateDom();
-
+    Language.ready = true;
     this._postTranslation();
   },
 
