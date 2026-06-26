@@ -201,47 +201,20 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 10px;
-        flex-wrap: wrap;
-        padding: 8px 10px;
-        border: 1px solid rgba(255, 255, 255, 0.16);
-        border-radius: 12px;
-        background: rgba(13, 17, 23, 0.74);
-        backdrop-filter: blur(12px);
-        color: #f8fafc;
-        font-family:
-          -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto,
-          system-ui, sans-serif;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.26);
-      }
-      .connect-label {
-        font-size: 12px;
-        font-weight: 700;
-        letter-spacing: 0.02em;
-        white-space: nowrap;
-      }
-      .social-buttons {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
+        gap: 16px;
         flex-wrap: wrap;
       }
       .social-button {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 7px;
-        min-height: 34px;
-        padding: 0 10px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        border: 1px solid rgba(15, 23, 42, 0.16);
         border-radius: 8px;
         background: rgba(255, 255, 255, 0.92);
-        color: #111827;
         text-decoration: none;
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 1;
         cursor: pointer;
         transition:
           transform 0.3s ease,
@@ -258,54 +231,47 @@
         height: 16px;
         display: block;
       }
-      .telegram-mark {
-        width: 16px;
-        height: 16px;
-        border-radius: 50%;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        background: #2aabee;
-        color: #ffffff;
-        font-size: 10px;
-        font-weight: 900;
-      }
       @media (max-width: 520px) {
         .connect-panel {
-          left: max(12px, env(safe-area-inset-left));
-          justify-content: space-between;
+          top: max(8px, env(safe-area-inset-top));
+          right: max(8px, env(safe-area-inset-right));
+          gap: 10px;
+        }
+        .social-button {
+          width: 32px;
+          height: 32px;
         }
       }
     </style>
   </head>
   <body>
     <div class="connect-panel" aria-label="Connect with us">
-      <span class="connect-label">Connect with us</span>
-      <div class="social-buttons">
-        <a
-          class="social-button"
-          href="https://github.com/higetit"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="GitHub higetit"
-        >
-          <img
-            src="https://images.shadcnspace.com/assets/svgs/icon-github.svg"
-            alt="github icon"
-          />
-          <span>higetit</span>
-        </a>
-        <a
-          class="social-button"
-          href="https://t.me/kkikk"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Telegram kkikk"
-        >
-          <span class="telegram-mark">TG</span>
-          <span>@kkikk</span>
-        </a>
-      </div>
+      <a
+        class="social-button"
+        href="https://github.com/higetit"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="GitHub higetit"
+        title="GitHub higetit"
+      >
+        <img
+          src="https://images.shadcnspace.com/assets/svgs/icon-github.svg"
+          alt="github icon"
+        />
+      </a>
+      <a
+        class="social-button"
+        href="https://t.me/kkikk"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Telegram kkikk"
+        title="Telegram @kkikk"
+      >
+        <img
+          src="https://cdn.simpleicons.org/telegram"
+          alt="telegram icon"
+        />
+      </a>
     </div>
     <div class="frame-loader" id="frame-loader">
       <div class="loader">
