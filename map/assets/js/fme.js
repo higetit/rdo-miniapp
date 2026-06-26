@@ -110,6 +110,8 @@ const FME = {
     const nextEvent = document.getElementById(`next-${key}-event`);
     if (nextEvent)
       nextEvent.style.display = hasValidNext ? '' : 'none';
+
+    return hasValidNext;
   },
 
   /**
@@ -195,12 +197,15 @@ const FME = {
       return;
     }
 
-    if (FME._eventsJson === null) return;
+    if (FME._eventsJson === null) {
+      FME.updateVisiblity(false);
+      return;
+    }
 
-    FME.updateEvent(FME._eventsJson.general, "general");
-    FME.updateEvent(FME._eventsJson.role, "role");
+    const hasGeneralEvent = FME.updateEvent(FME._eventsJson.general, "general");
+    const hasRoleEvent = FME.updateEvent(FME._eventsJson.role, "role");
 
-    FME.updateVisiblity(true);
+    FME.updateVisiblity(hasGeneralEvent || hasRoleEvent);
   },
 
   /**
