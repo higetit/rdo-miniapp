@@ -23,6 +23,7 @@ const FME = {
    * Maybe make this persistent later, but there's no real need for it.
    */
   _sentNotifications: [],
+  _retryTimeout: null,
 
   /**
    * A list of flags to use for the FME enabled settings
@@ -48,6 +49,18 @@ const FME = {
     fme_challenge_wild_animals_kills: 65536,
     fme_challenge_lake_fishing: 131072,
     fme_challenge_swamp_fishing: 262144,
+  },
+
+  hasTranslations: function () {
+    return Language.get('menu.fme.time.starts_in') !== 'menu.fme.time.starts_in';
+  },
+
+  retryUpdate: function () {
+    if (FME._retryTimeout) return;
+    FME._retryTimeout = window.setTimeout(() => {
+      FME._retryTimeout = null;
+      FME.update();
+    }, 250);
   },
 
   /**
@@ -187,8 +200,9 @@ const FME = {
    * Update the FME card
    */
   update: function () {
-    if (!Language.ready) {
+    if (!FME.hasTranslations()) {
       FME.updateVisiblity(false);
+      FME.retryUpdate();
       return;
     }
 
@@ -199,6 +213,7 @@ const FME = {
 
     if (FME._eventsJson === null) {
       FME.updateVisiblity(false);
+      FME.retryUpdate();
       return;
     }
 
