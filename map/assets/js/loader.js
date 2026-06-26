@@ -7,7 +7,8 @@ class Loader {
         this.urls = new Map();
         this.promises = {};
         urls.forEach(url => {
-            const name = url.split('?')[0].split('/').filter(e => e).pop().split('.', 1)[0];
+            const primaryUrl = Array.isArray(url) ? url[0] : url;
+            const name = primaryUrl.split('?')[0].split('/').filter(e => e).pop().split('.', 1)[0];
             this.promises[name] = new Loader(name, url);
             this.urls.set(name, url);
         });
@@ -21,22 +22,34 @@ class Loader {
         this.mapModelLoaded = new Promise(resolve => this.resolveMapModelLoaded = resolve);
     }
     constructor(name, url, customNoCache = null) {
-        const queryString = {};
+        const sourceUrls = Array.isArray(url) ? url : [url];
 
-        if (['updates'].includes(name)) queryString.nocache = Date.now();
-        else if (['fme'].includes(name)) queryString.nocache = Math.floor(Date.now() / 10000);
-        else if (!url.startsWith('http')) queryString.nocache = customNoCache || nocache;
-        else queryString.nocache = customNoCache || new Date(Date.now() - 21600000).toISOUTCDateString();
+        const buildUrl = (sourceUrl) => {
+            const queryString = {};
 
-        if (['cycles', 'lang_progress', 'jewelry_timestamps'].includes(name)) queryString.date = customNoCache || new Date().toISOUTCDateString();
+            if (['updates', 'cycles'].includes(name)) queryString.nocache = Date.now();
+            else if (['fme'].includes(name)) queryString.nocache = Math.floor(Date.now() / 10000);
+            else if (!sourceUrl.startsWith('http')) queryString.nocache = customNoCache || nocache;
+            else queryString.nocache = customNoCache || new Date(Date.now() - 21600000).toISOUTCDateString();
 
-        this._json = fetch(`${url}?${new URLSearchParams(queryString).toString()}`)
+            if (['cycles', 'lang_progress', 'jewelry_timestamps'].includes(name)) queryString.date = customNoCache || new Date().toISOUTCDateString();
+
+            return `${sourceUrl}?${new URLSearchParams(queryString).toString()}`;
+        };
+
+        const fetchJson = (sourceUrl) => fetch(buildUrl(sourceUrl))
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`${response.status} ${response.statusText} on ${response.url}`);
                 }
                 return response.json();
             });
+
+        this._json = fetchJson(sourceUrls[0]).catch(error => {
+            if (sourceUrls.length < 2) throw error;
+            console.warn(`[Loader] Failed to load ${name} from primary source, using fallback.`, error);
+            return fetchJson(sourceUrls[1]);
+        });
     }
     // allow garbage collection of loaded data after use
     consumeJson(...args) {
@@ -53,7 +66,7 @@ class Loader {
 
 const urls = [
     'data/animal_legendary.json',
-    'data/cycles.json',
+    ['https://jeanropke.github.io/RDR2CollectorsMap/data/cycles.json', 'data/cycles.json'],
     'data/fasttravels.json',
     'data/filters.json',
     'data/items_value.json',
